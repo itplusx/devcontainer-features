@@ -1,0 +1,23 @@
+{
+    "name": "Mount pnpm Store",
+    "id": "mount-pnpm-store",
+    "version": "1.1.0",
+    "documentationURL": "https://github.com/itplusx/devcontainer-features/tree/main/src/mount-pnpm-store",
+    "description": "Sets pnpm store to ~/.pnpm-store and mounts it to a volume to share between multiple devcontainers. Patched fork of joshuanianji/devcontainer-features that works with pnpm >= 9 in non-interactive lifecycle shells.",
+    "options": {},
+    "mounts": [
+        {
+            "source": "global-devcontainer-pnpm-store",
+            "target": "/dc/mounted-pnpm-store",
+            "type": "volume"
+        }
+    ],
+    "installsAfter": [
+        "ghcr.io/devcontainers/features/node",
+        "ghcr.io/devcontainers/features/common-utils",
+        "ghcr.io/meaningful-ooo/devcontainer-features/fish"
+    ],
+    "onCreateCommand": {
+        "mount-pnpm-store-setup": "/usr/local/share/mount-pnpm-store/scripts/oncreate.sh"
+    }
+}
