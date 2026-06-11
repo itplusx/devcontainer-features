@@ -2,16 +2,23 @@
 
 This feature is a patched copy of [`joshuanianji/devcontainer-features/mount-pnpm-store`](https://github.com/joshuanianji/devcontainer-features/tree/main/src/mount-pnpm-store) (MIT, Copyright (c) 2023 Joshua Ji), copied at upstream version `1.0.2` (commit `e91be54`).
 
-**The patch:** pnpm >= 9 hard-fails any `--global` command when its global bin directory (`$PNPM_HOME/bin`, default `~/.local/share/pnpm/bin`) is not in `PATH`. The feature's `onCreateCommand` script runs in a non-interactive shell where rc-file exports are not loaded, so `pnpm config set store-dir --global` killed the container build (see [upstream issue #80](https://github.com/joshuanianji/devcontainer-features/issues/80) and [devcontainers-extra/features#218](https://github.com/devcontainers-extra/features/issues/218)). `oncreate.sh` now exports `PNPM_HOME` (defaulting to `~/.local/share/pnpm`) and prepends `$PNPM_HOME/bin` to `PATH` before invoking pnpm, so no `remoteEnv`/`containerEnv` workaround is needed in the consuming `devcontainer.json` for the feature itself to install.
+**The patch:** pnpm hard-fails any `--global` command when its global bin directory is not in `PATH`. The expected directory differs by version: `$PNPM_HOME` for pnpm <= 8, `$PNPM_HOME/bin` for pnpm >= 9 (default `~/.local/share/pnpm[/bin]`). The feature's `onCreateCommand` script runs in a non-interactive shell where rc-file exports are not loaded, so `pnpm config set store-dir --global` killed the container build (see [upstream issue #80](https://github.com/joshuanianji/devcontainer-features/issues/80) and [devcontainers-extra/features#218](https://github.com/devcontainers-extra/features/issues/218)). `oncreate.sh` now exports `PNPM_HOME` (defaulting to `~/.local/share/pnpm`) and prepends both `$PNPM_HOME/bin` and `$PNPM_HOME` to `PATH` before invoking pnpm. The feature is therefore self-sufficient — no `remoteEnv`/`containerEnv` workaround is needed in the consuming `devcontainer.json`, and project-local `pnpm install` works out of the box.
 
-Note: your *own* lifecycle scripts or non-interactive shells that run `pnpm` global commands still need the same environment. Declare it once in your `devcontainer.json` (adjust the home directory to your `remoteUser`):
+### Global pnpm commands in your own shells
+
+The patch only fixes the environment for this feature's own script. If *you* run pnpm global commands (`pnpm add -g ...`) in container terminals or your own lifecycle scripts, those shells need the same environment. Declare it in your `devcontainer.json` (adjust the home directory to your `remoteUser`):
 
 ```json
 "containerEnv": {
-    "PNPM_HOME": "/home/vscode/.local/share/pnpm",
+    "PNPM_HOME": "/home/vscode/.local/share/pnpm"
+},
+"remoteEnv": {
     "PATH": "/home/vscode/.local/share/pnpm/bin:${containerEnv:PATH}"
 }
 ```
+
+> [!WARNING]
+> The `PATH` entry must go in `remoteEnv`, **not** `containerEnv`: the `${containerEnv:VAR}` substitution is only resolved in `remoteEnv`. Putting it in `containerEnv` sets the container's `PATH` to the literal unresolved string, which breaks every binary lookup (`sleep`, `sed`, ...) and makes the container exit immediately after start.
 
 ## OS and Architecture Support
 
@@ -55,7 +62,7 @@ The volume mount is called `global-devcontainer-pnpm-store` (same name as upstre
 
 | Version | Notes                                                                              |
 | ------- | ---------------------------------------------------------------------------------- |
-| 1.1.0   | Copy to itplusx namespace; fix `oncreate.sh` for pnpm >= 9 global bin dir check    |
+| 1.1.0   | Copy to itplusx namespace; fix `oncreate.sh` for the pnpm global bin dir check     |
 | 1.0.2   | (upstream) Move onCreate lifecycle script to `oncreate.sh`                         |
 | 1.0.1   | (upstream) Fix Docs                                                                |
 | 1.0.0   | (upstream) Support zsh + refactor                                                  |
