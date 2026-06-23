@@ -1,9 +1,10 @@
 {
     "name": "Mount pnpm Store",
     "id": "mount-pnpm-store",
-    "version": "1.1.0",
+    "version": "1.2.0",
+    "deprecated": true,
     "documentationURL": "https://github.com/itplusx/devcontainer-features/tree/main/src/mount-pnpm-store",
-    "description": "Sets pnpm store to ~/.pnpm-store and mounts it to a volume to share between multiple devcontainers. Patched fork of joshuanianji/devcontainer-features that works with pnpm >= 9 in non-interactive lifecycle shells.",
+    "description": "[DEPRECATED — use shared-pnpm-store instead] Sets pnpm store to ~/.pnpm-store and mounts it to a volume to share between multiple devcontainers. Patched fork of joshuanianji/devcontainer-features that works with pnpm >= 9 in non-interactive lifecycle shells.",
     "options": {},
     "mounts": [
         {

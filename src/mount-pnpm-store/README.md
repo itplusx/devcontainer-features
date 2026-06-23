@@ -1,7 +1,7 @@
 
 # Mount pnpm Store (mount-pnpm-store)
 
-Sets pnpm store to ~/.pnpm-store and mounts it to a volume to share between multiple devcontainers. Patched fork of joshuanianji/devcontainer-features that works with pnpm >= 9 in non-interactive lifecycle shells.
+[DEPRECATED — use shared-pnpm-store instead] Sets pnpm store to ~/.pnpm-store and mounts it to a volume to share between multiple devcontainers. Patched fork of joshuanianji/devcontainer-features that works with pnpm >= 9 in non-interactive lifecycle shells.
 
 ## Example Usage
 
@@ -16,6 +16,28 @@ Sets pnpm store to ~/.pnpm-store and mounts it to a volume to share between mult
 | Options Id | Description | Type | Default Value |
 |-----|-----|-----|-----|
 
+
+> [!WARNING]
+> **This feature is deprecated.** Use
+> [`shared-pnpm-store`](https://github.com/itplusx/devcontainer-features/tree/main/src/shared-pnpm-store)
+> instead. It achieves the same shared-store goal with `containerEnv` only — it
+> never invokes pnpm, so it avoids the `PNPM_HOME` / PATH / non-interactive-shell
+> patching this feature needs. `mount-pnpm-store` will not receive further
+> updates.
+>
+> **Migration:** replace the feature reference in your `devcontainer.json`:
+>
+> ```json
+> "features": {
+>     "ghcr.io/itplusx/devcontainer-features/shared-pnpm-store:1": {}
+> }
+> ```
+>
+> The two features use different volume names
+> (`global-devcontainer-pnpm-store` vs `devcontainer-shared-pnpm-store`), so the
+> first `pnpm install` after switching re-populates the new store from the
+> registry. Any `PNPM_HOME`/`PATH` workaround you added in `devcontainer.json`
+> for this feature can be removed.
 
 ## Origin
 
@@ -81,6 +103,7 @@ The volume mount is called `global-devcontainer-pnpm-store` (same name as upstre
 
 | Version | Notes                                                                              |
 | ------- | ---------------------------------------------------------------------------------- |
+| 1.2.0   | Deprecated in favor of `shared-pnpm-store`                                          |
 | 1.1.0   | Copy to itplusx namespace; fix `oncreate.sh` for the pnpm global bin dir check     |
 | 1.0.2   | (upstream) Move onCreate lifecycle script to `oncreate.sh`                         |
 | 1.0.1   | (upstream) Fix Docs                                                                |
