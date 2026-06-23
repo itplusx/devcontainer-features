@@ -1,0 +1,27 @@
+{
+    "name": "Shared pnpm Store",
+    "id": "shared-pnpm-store",
+    "version": "1.0.0",
+    "documentationURL": "https://github.com/itplusx/devcontainer-features/tree/main/src/shared-pnpm-store",
+    "description": "Mounts a shared Docker volume as the pnpm store directory so packages are downloaded once and reused across multiple devcontainers. Points pnpm at the volume via containerEnv — no pnpm invocation, no symlink.",
+    "options": {},
+    "containerEnv": {
+        "PNPM_CONFIG_STORE_DIR": "/mnt/shared-pnpm-store",
+        "NPM_CONFIG_STORE_DIR": "/mnt/shared-pnpm-store"
+    },
+    "mounts": [
+        {
+            "source": "devcontainer-shared-pnpm-store",
+            "target": "/mnt/shared-pnpm-store",
+            "type": "volume"
+        }
+    ],
+    "installsAfter": [
+        "ghcr.io/devcontainers/features/node",
+        "ghcr.io/devcontainers/features/common-utils",
+        "ghcr.io/meaningful-ooo/devcontainer-features/fish"
+    ],
+    "onCreateCommand": {
+        "shared-pnpm-store-setup": "/usr/local/share/shared-pnpm-store/scripts/oncreate.sh"
+    }
+}
