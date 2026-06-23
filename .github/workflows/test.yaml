@@ -12,6 +12,7 @@ jobs:
     strategy:
       matrix:
         features:
+          - shared-pnpm-store
           - mount-pnpm-store
         baseImage:
           - debian:latest
@@ -31,6 +32,7 @@ jobs:
     strategy:
       matrix:
         features:
+          - shared-pnpm-store
           - mount-pnpm-store
     steps:
       - uses: actions/checkout@v4
