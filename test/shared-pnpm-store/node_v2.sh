@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -e
+set -euo pipefail
 
 # node feature v2 installs latest pnpm by default; this feature touches no
 # pnpm global state, so the default assertions are sufficient.

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -e
+set -euo pipefail
 
 # Optional: Import test library
 source dev-container-features-test-lib
