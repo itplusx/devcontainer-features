@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -e
+set -euo pipefail
 
 # Default assertions, reused by scenarios that have pnpm installed.
 # Not run directly as a scenario.
