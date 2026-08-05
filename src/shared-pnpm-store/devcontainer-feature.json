@@ -1,7 +1,7 @@
 {
     "name": "Shared pnpm Store",
     "id": "shared-pnpm-store",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "documentationURL": "https://github.com/itplusx/devcontainer-features/tree/main/src/shared-pnpm-store",
     "description": "Mounts a shared Docker volume as the pnpm store directory so packages are downloaded once and reused across multiple devcontainers. Points pnpm at the volume via containerEnv — no pnpm invocation, no symlink.",
     "options": {},
