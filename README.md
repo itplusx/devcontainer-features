@@ -6,8 +6,9 @@ Custom [Dev Container Features](https://containers.dev/implementors/features/) m
 
 | Feature | Description |
 | ------- | ----------- |
-| [`shared-pnpm-store`](./src/shared-pnpm-store) | Mounts a shared Docker volume as the pnpm store directory via `containerEnv`. Never invokes pnpm. **Recommended.** |
-| [`mount-pnpm-store`](./src/mount-pnpm-store) | **Deprecated** — use `shared-pnpm-store` instead. Sets the pnpm store to `~/.pnpm-store` and mounts it to a shared volume. Patched copy of [joshuanianji/devcontainer-features](https://github.com/joshuanianji/devcontainer-features) that works with pnpm >= 9 in non-interactive lifecycle shells. |
+| [`shared-pnpm-store`](./src/shared-pnpm-store) | Mounts a shared Docker volume as the pnpm store directory via `containerEnv`. Never invokes pnpm. |
+
+> The former `mount-pnpm-store` feature has been removed. Use `shared-pnpm-store` instead.
 
 ## Usage
 
@@ -45,4 +46,4 @@ The initial implementation of `shared-pnpm-store` was developed locally by [@sch
 
 ## License
 
-MIT — see [LICENSE](./LICENSE). The `mount-pnpm-store` feature contains code Copyright (c) 2023 Joshua Ji (MIT).
+MIT — see [LICENSE](./LICENSE).
