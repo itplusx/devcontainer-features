@@ -19,8 +19,8 @@ It does this with four declarative pieces and **no pnpm invocation**:
   non-root user on every container create.
 
 Because pnpm is never invoked, this feature avoids the `pnpm config set --global`
-/ `PNPM_HOME` / PATH / non-interactive-shell problems that `mount-pnpm-store` has
-to patch. It is a simpler alternative; the two features are independent.
+/ `PNPM_HOME` / PATH / non-interactive-shell problems that arise when a feature
+has to configure pnpm from a non-interactive lifecycle shell.
 
 ## Ownership of the shared store
 
@@ -56,9 +56,7 @@ depend on the interactive shell)
 ## Volume Mount Naming
 
 The volume is named `devcontainer-shared-pnpm-store`. Ensure no other Docker
-volume collides with this name. (This is a different volume from
-`mount-pnpm-store`'s `global-devcontainer-pnpm-store`, so the two features do
-not share a store with each other.)
+volume collides with this name.
 
 ## Changelog
 
