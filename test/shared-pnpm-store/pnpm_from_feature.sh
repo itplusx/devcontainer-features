@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -e
+set -euo pipefail
 
 # pnpm installed via the node feature
 ./_default.sh

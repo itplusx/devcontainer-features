@@ -1,6 +1,6 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
-set -e
+set -euo pipefail
 
 STORE_DIR="/mnt/shared-pnpm-store"
 
@@ -9,7 +9,7 @@ STORE_DIR="/mnt/shared-pnpm-store"
 # ownership for the current non-root user on every container create so pnpm can
 # always write to the store, even if the volume was first created by root or a
 # different user.
-if [ "$(id -u)" != "0" ]; then
+if [[ "$(id -u)" != "0" ]]; then
     USERNAME="$(id -un)"
     echo "Setting owner of ${STORE_DIR} to ${USERNAME}..."
     sudo chown -R "${USERNAME}:${USERNAME}" "${STORE_DIR}"
