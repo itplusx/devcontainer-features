@@ -6,7 +6,8 @@ Custom [Dev Container Features](https://containers.dev/implementors/features/) m
 
 | Feature | Description |
 | ------- | ----------- |
-| [`shared-pnpm-store`](./src/shared-pnpm-store) | Mounts a shared Docker volume as the pnpm store directory via `containerEnv`. Never invokes pnpm. |
+| [`shared-pnpm-store`](./src/shared-pnpm-store) | Mounts shared Docker volumes as the pnpm store and package-manager store and sets `PNPM_HOME` via `containerEnv`. Never invokes pnpm. |
+| [`omz-pnpm-plugin`](./src/omz-pnpm-plugin) | Installs the [itplusx fork](https://github.com/itplusx/omz-plugin-pnpm) of the oh-my-zsh pnpm plugin, which respects a pre-set `PNPM_HOME`. |
 
 > The former `mount-pnpm-store` feature has been removed. Use `shared-pnpm-store` instead.
 
@@ -14,7 +15,8 @@ Custom [Dev Container Features](https://containers.dev/implementors/features/) m
 
 ```json
 "features": {
-    "ghcr.io/itplusx/devcontainer-features/shared-pnpm-store:1": {}
+    "ghcr.io/itplusx/devcontainer-features/shared-pnpm-store:1.1.0": {},
+    "ghcr.io/itplusx/devcontainer-features/omz-pnpm-plugin:1.0.0": {}
 }
 ```
 

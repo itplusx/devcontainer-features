@@ -41,5 +41,14 @@
             "shared-pnpm-store": {}
         },
         "remoteUser": "root"
+    },
+    "version_switch": {
+        "image": "mcr.microsoft.com/devcontainers/base:debian-12",
+        "features": {
+            "ghcr.io/devcontainers/features/node:2": {
+                "pnpmVersion": "latest"
+            },
+            "shared-pnpm-store": {}
+        }
     }
 }

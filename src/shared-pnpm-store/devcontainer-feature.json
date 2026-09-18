@@ -1,18 +1,27 @@
 {
     "name": "Shared pnpm Store",
     "id": "shared-pnpm-store",
-    "version": "1.0.1",
+    "version": "1.1.0",
     "documentationURL": "https://github.com/itplusx/devcontainer-features/tree/main/src/shared-pnpm-store",
-    "description": "Mounts a shared Docker volume as the pnpm store directory so packages are downloaded once and reused across multiple devcontainers. Points pnpm at the volume via containerEnv — no pnpm invocation, no symlink.",
+    "description": "Mounts shared Docker volumes as the pnpm content-addressable store and the pnpm package-manager store, and sets PNPM_HOME so pnpm never falls back to the current directory. Points pnpm at the volumes via containerEnv — no pnpm invocation, no symlink.",
     "options": {},
     "containerEnv": {
         "PNPM_CONFIG_STORE_DIR": "/mnt/shared-pnpm-store",
-        "NPM_CONFIG_STORE_DIR": "/mnt/shared-pnpm-store"
+        "NPM_CONFIG_STORE_DIR": "/mnt/shared-pnpm-store",
+        "PNPM_HOME": "/usr/local/share/pnpm",
+        "PNPM_CONFIG_GLOBAL_BIN_DIR": "/usr/local/share/pnpm/bin",
+        "NPM_CONFIG_GLOBAL_BIN_DIR": "/usr/local/share/pnpm/bin",
+        "PATH": "/usr/local/share/pnpm/bin:${PATH}"
     },
     "mounts": [
         {
             "source": "devcontainer-shared-pnpm-store",
             "target": "/mnt/shared-pnpm-store",
+            "type": "volume"
+        },
+        {
+            "source": "devcontainer-shared-pnpm-package-manager-store",
+            "target": "/usr/local/share/pnpm/package-manager-store",
             "type": "volume"
         }
     ],

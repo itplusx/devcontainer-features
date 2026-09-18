@@ -1,0 +1,36 @@
+{
+    "common_utils_zsh": {
+        "image": "mcr.microsoft.com/devcontainers/base:debian-12",
+        "features": {
+            "ghcr.io/devcontainers/features/common-utils:2": {
+                "configureZshAsDefaultShell": true
+            },
+            "ghcr.io/devcontainers/features/node:2": {},
+            "shared-pnpm-store": {},
+            "omz-pnpm-plugin": {}
+        }
+    },
+    "nils_zsh": {
+        "image": "mcr.microsoft.com/devcontainers/base:debian-12",
+        "features": {
+            "ghcr.io/devcontainers/features/node:2": {},
+            "ghcr.io/nils-geistmann/devcontainers-features/zsh:0": {
+                "plugins": "git docker"
+            },
+            "shared-pnpm-store": {},
+            "omz-pnpm-plugin": {}
+        }
+    },
+    "no_activate": {
+        "image": "mcr.microsoft.com/devcontainers/base:debian-12",
+        "features": {
+            "ghcr.io/devcontainers/features/common-utils:2": {
+                "configureZshAsDefaultShell": true
+            },
+            "shared-pnpm-store": {},
+            "omz-pnpm-plugin": {
+                "activate": false
+            }
+        }
+    }
+}

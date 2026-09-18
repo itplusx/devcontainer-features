@@ -13,6 +13,7 @@ jobs:
       matrix:
         features:
           - shared-pnpm-store
+          - omz-pnpm-plugin
         baseImage:
           - debian:latest
           - ubuntu:latest
@@ -32,6 +33,7 @@ jobs:
       matrix:
         features:
           - shared-pnpm-store
+          - omz-pnpm-plugin
     steps:
       - uses: actions/checkout@v4
 
