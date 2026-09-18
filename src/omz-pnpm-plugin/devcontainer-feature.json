@@ -1,0 +1,32 @@
+{
+    "name": "oh-my-zsh pnpm plugin",
+    "id": "omz-pnpm-plugin",
+    "version": "1.0.0",
+    "documentationURL": "https://github.com/itplusx/devcontainer-features/tree/main/src/omz-pnpm-plugin",
+    "description": "Installs the itplusx fork of the omz-plugin-pnpm oh-my-zsh plugin (pnpm aliases) into the remote user's oh-my-zsh custom plugins and activates it. The fork respects a pre-set PNPM_HOME and never exports an empty one.",
+    "options": {
+        "ref": {
+            "type": "string",
+            "default": "v1.0.0",
+            "proposals": [
+                "v1.0.0",
+                "main"
+            ],
+            "description": "Git tag or branch of https://github.com/itplusx/omz-plugin-pnpm to install."
+        },
+        "activate": {
+            "type": "boolean",
+            "default": true,
+            "description": "Add 'pnpm' to the plugins=(...) line of the remote user's ~/.zshrc if it is not listed yet."
+        }
+    },
+    "installsAfter": [
+        "ghcr.io/devcontainers/features/common-utils",
+        "ghcr.io/nils-geistmann/devcontainers-features/zsh",
+        "ghcr.io/devcontainers/features/node",
+        "ghcr.io/itplusx/devcontainer-features/shared-pnpm-store"
+    ],
+    "onCreateCommand": {
+        "omz-pnpm-plugin-setup": "/usr/local/share/omz-pnpm-plugin/scripts/oncreate.sh"
+    }
+}
