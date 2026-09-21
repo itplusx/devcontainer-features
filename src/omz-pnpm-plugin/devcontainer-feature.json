@@ -1,14 +1,15 @@
 {
     "name": "oh-my-zsh pnpm plugin",
     "id": "omz-pnpm-plugin",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "documentationURL": "https://github.com/itplusx/devcontainer-features/tree/main/src/omz-pnpm-plugin",
-    "description": "Installs the itplusx fork of the omz-plugin-pnpm oh-my-zsh plugin (pnpm aliases) into the remote user's oh-my-zsh custom plugins and activates it. The fork respects a pre-set PNPM_HOME and never exports an empty one.",
+    "description": "Installs the omz-plugin-pnpm oh-my-zsh plugin (pnpm aliases) from the itplusx tag mirror into the remote user's oh-my-zsh custom plugins and activates it. The plugin respects a pre-set PNPM_HOME and never leaves it empty.",
     "options": {
         "ref": {
             "type": "string",
-            "default": "v1.0.0",
+            "default": "v1.1.0",
             "proposals": [
+                "v1.1.0",
                 "v1.0.0",
                 "main"
             ],

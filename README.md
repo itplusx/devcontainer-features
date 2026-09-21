@@ -16,7 +16,7 @@ Custom [Dev Container Features](https://containers.dev/implementors/features/) m
 ```json
 "features": {
     "ghcr.io/itplusx/devcontainer-features/shared-pnpm-store:1.1.0": {},
-    "ghcr.io/itplusx/devcontainer-features/omz-pnpm-plugin:1.0.0": {}
+    "ghcr.io/itplusx/devcontainer-features/omz-pnpm-plugin:1.0.1": {}
 }
 ```
 

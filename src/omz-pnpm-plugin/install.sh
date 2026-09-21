@@ -2,7 +2,7 @@
 
 set -euo pipefail
 
-REF="${REF:-v1.0.0}"
+REF="${REF:-v1.1.0}"
 ACTIVATE="${ACTIVATE:-true}"
 USERNAME=${USERNAME:-${_REMOTE_USER:-}}
 USER_HOME=${_REMOTE_USER_HOME:-}
