@@ -1,7 +1,7 @@
 
 # oh-my-zsh pnpm plugin (omz-pnpm-plugin)
 
-Installs the itplusx fork of the omz-plugin-pnpm oh-my-zsh plugin (pnpm aliases) into the remote user's oh-my-zsh custom plugins and activates it. The fork respects a pre-set PNPM_HOME and never exports an empty one.
+Installs the omz-plugin-pnpm oh-my-zsh plugin (pnpm aliases) from the itplusx tag mirror into the remote user's oh-my-zsh custom plugins and activates it. The plugin respects a pre-set PNPM_HOME and never leaves it empty.
 
 ## Example Usage
 
@@ -15,7 +15,7 @@ Installs the itplusx fork of the omz-plugin-pnpm oh-my-zsh plugin (pnpm aliases)
 
 | Options Id | Description | Type | Default Value |
 |-----|-----|-----|-----|
-| ref | Git tag or branch of https://github.com/itplusx/omz-plugin-pnpm to install. | string | v1.0.0 |
+| ref | Git tag or branch of https://github.com/itplusx/omz-plugin-pnpm to install. | string | v1.1.0 |
 | activate | Add 'pnpm' to the plugins=(...) line of the remote user's ~/.zshrc if it is not listed yet. | boolean | true |
 
 ## How it works
@@ -34,18 +34,20 @@ Installs the itplusx fork of the omz-plugin-pnpm oh-my-zsh plugin (pnpm aliases)
 ## Why a fork
 
 The original [ntnyq/omz-plugin-pnpm](https://github.com/ntnyq/omz-plugin-pnpm)
-is unmaintained and mishandles `PNPM_HOME`:
+used to mishandle `PNPM_HOME`:
 
-- when `pnpm -g bin` fails (fresh container, bin dir not on `PATH`) it still
-  runs `export PNPM_HOME=""`, and pnpm treats an empty `PNPM_HOME` as the
-  current directory. Every pnpm call then creates `global/` and
+- when `pnpm -g bin` failed (fresh container, bin dir not on `PATH`) it still
+  ran `export PNPM_HOME=""`, and pnpm treats an empty `PNPM_HOME` as the
+  current directory. Every pnpm call then created `global/` and
   `package-manager-store/` in your project root.
-- when `pnpm -g bin` succeeds it overrides `PNPM_HOME` with the bin dir. On
+- when `pnpm -g bin` succeeded it overrode `PNPM_HOME` with the bin dir. On
   pnpm 11+ that is `$PNPM_HOME/bin`, which moves the package-manager store out
   of the volume that [`shared-pnpm-store`](../shared-pnpm-store) mounts.
 
-The fork leaves a pre-set `PNPM_HOME` alone and never exports an empty one.
-Aliases are unchanged.
+Both are fixed upstream since September 2026 (the plugin no longer calls pnpm
+on shell start at all). Upstream publishes no tags, so the fork exists as a
+tag source: `v1.0.0` is the original itplusx fix, `v1.1.0` and later mirror
+upstream commits verbatim. Aliases are unchanged either way.
 
 ## Pairing with `shared-pnpm-store`
 
@@ -59,7 +61,7 @@ does not undo that.
         "plugins": "git docker"
     },
     "ghcr.io/itplusx/devcontainer-features/shared-pnpm-store:1.1.0": {},
-    "ghcr.io/itplusx/devcontainer-features/omz-pnpm-plugin:1.0.0": {}
+    "ghcr.io/itplusx/devcontainer-features/omz-pnpm-plugin:1.0.1": {}
 }
 ```
 
@@ -80,6 +82,7 @@ source). Without oh-my-zsh the feature installs cleanly and does nothing.
 
 | Version | Notes           |
 | ------- | --------------- |
+| 1.0.1   | Default `ref` is `v1.1.0`, a mirror of upstream after the `PNPM_HOME` fix landed there |
 | 1.0.0   | Initial release |
 
 
